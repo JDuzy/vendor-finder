@@ -5,10 +5,10 @@ import com.juanduzac.vendorlust.data.remote.api.VendorsApi
 import com.juanduzac.vendorlust.domain.model.VendorsResponse
 import com.juanduzac.vendorlust.domain.repository.VendorsRepository
 import com.juanduzac.vendorlust.domain.util.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class VendorsRepositoryImpl @Inject constructor(
     private val api: VendorsApi
@@ -26,9 +26,7 @@ class VendorsRepositoryImpl @Inject constructor(
             }
         }
 
-
     companion object {
         private const val ERROR_MSG = "An unknown error has occurred"
     }
 }
-
