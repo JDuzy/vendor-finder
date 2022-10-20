@@ -6,5 +6,5 @@ data class ContactInfo(
     val emailAddress: String?,
     val websiteUrl: String?,
     val location: Location?,
-    val address: Address,
+    val address: Address?,
 )
