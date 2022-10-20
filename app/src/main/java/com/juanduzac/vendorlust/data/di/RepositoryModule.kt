@@ -16,5 +16,5 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun bindVendorsRepository(
         vendorsRepositoryImpl: VendorsRepositoryImpl
-    ) : VendorsRepository
+    ): VendorsRepository
 }

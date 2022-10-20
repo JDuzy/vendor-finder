@@ -8,5 +8,5 @@ fun GalleryItemDto.toGalleryItem(): GalleryItem {
         id = id,
         youtubeVideoId = youtubeVideoId,
         image = imageDto?.toImage()
-        )
+    )
 }
