@@ -8,13 +8,13 @@ import com.juanduzac.vendorlust.domain.model.OpeningHoursInWeek
 fun OpeningHoursInWeekDto.toOpeningHoursInWeek(): OpeningHoursInWeek {
     return OpeningHoursInWeek(
         id = id,
-        monday = monday?.map { it.toOpeningHoursInDay()},
-        tuesday = tuesday?.map { it.toOpeningHoursInDay()},
-        wednesday = wednesday?.map { it.toOpeningHoursInDay()},
-        thursday = thursday?.map { it.toOpeningHoursInDay()},
-        friday = friday?.map { it.toOpeningHoursInDay()},
-        saturday = saturday?.map { it.toOpeningHoursInDay()},
-        sunday = sunday?.map { it.toOpeningHoursInDay()},
+        monday = monday?.map { it.toOpeningHoursInDay() },
+        tuesday = tuesday?.map { it.toOpeningHoursInDay() },
+        wednesday = wednesday?.map { it.toOpeningHoursInDay() },
+        thursday = thursday?.map { it.toOpeningHoursInDay() },
+        friday = friday?.map { it.toOpeningHoursInDay() },
+        saturday = saturday?.map { it.toOpeningHoursInDay() },
+        sunday = sunday?.map { it.toOpeningHoursInDay() },
     )
 }
 
