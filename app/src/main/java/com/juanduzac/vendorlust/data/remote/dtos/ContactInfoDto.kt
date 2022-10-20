@@ -12,7 +12,7 @@ data class ContactInfoDto(
     @field:Json(name = "website_url")
     val websiteUrl: String?,
     @field:Json(name = "location")
-    val location: LocationDto?,
+    val locationDto: LocationDto?,
     @field:Json(name = "address")
-    val address: AddressDto,
+    val addressDto: AddressDto?,
 )

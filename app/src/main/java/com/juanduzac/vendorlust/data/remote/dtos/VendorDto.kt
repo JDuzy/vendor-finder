@@ -12,11 +12,11 @@ data class VendorDto(
     @field:Json(name = "description")
     val description: String?,
     @field:Json(name = "contact_info")
-    val contactInfo: ContactInfoDto?,
+    val contactInfoDto: ContactInfoDto?,
     @field:Json(name = "gallery")
-    val gallery: List<GalleryItemDto>?,
+    val galleryDto: List<GalleryItemDto>?,
     @field:Json(name = "opening_hours")
-    val openingHours: OpeningHoursInWeekDto?,
+    val openingHoursDto: OpeningHoursInWeekDto?,
     @field:Json(name = "hero_image")
-    val heroImage: ImageDto?
+    val heroImageDto: ImageDto?
 )

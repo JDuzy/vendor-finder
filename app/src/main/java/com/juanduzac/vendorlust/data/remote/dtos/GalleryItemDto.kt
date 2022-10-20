@@ -8,5 +8,5 @@ data class GalleryItemDto(
     @field:Json(name = "youtube_video_id")
     val youtubeVideoId: Int?,
     @field:Json(name = "image")
-    val image: ImageDto,
+    val imageDto: ImageDto?,
 )
