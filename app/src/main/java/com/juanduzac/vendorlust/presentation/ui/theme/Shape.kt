@@ -1,4 +1,4 @@
-package com.juanduzac.vendorlust.ui.theme
+package com.juanduzac.vendorlust.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
