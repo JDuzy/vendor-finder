@@ -1,7 +1,7 @@
 package com.juanduzac.vendorlust.domain.model
 
 data class Image(
-    val id: Int?,
+    val id: Long?,
     val name: String?,
     val alternativeText: String?,
     val caption: String?,

@@ -1,7 +1,7 @@
 package com.juanduzac.vendorlust.domain.model
 
 data class Vendor(
-    val id: Int?,
+    val id: Long?,
     val displayName: String?,
     val name: String?,
     val description: String?,

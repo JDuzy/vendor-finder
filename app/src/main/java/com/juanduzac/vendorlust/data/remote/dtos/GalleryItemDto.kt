@@ -4,9 +4,7 @@ import com.squareup.moshi.Json
 
 data class GalleryItemDto(
     @field:Json(name = "id")
-    val id: Int?,
-    @field:Json(name = "youtube_video_id")
-    val youtubeVideoId: Int?,
+    val id: Long,
     @field:Json(name = "image")
     val imageDto: ImageDto?,
 )

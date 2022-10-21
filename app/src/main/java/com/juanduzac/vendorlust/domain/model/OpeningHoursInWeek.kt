@@ -1,7 +1,7 @@
 package com.juanduzac.vendorlust.domain.model
 
 data class OpeningHoursInWeek(
-    val id: Int?,
+    val id: Long?,
     val monday: List<OpeningHoursInDay>?,
     val tuesday: List<OpeningHoursInDay>?,
     val wednesday: List<OpeningHoursInDay>?,
