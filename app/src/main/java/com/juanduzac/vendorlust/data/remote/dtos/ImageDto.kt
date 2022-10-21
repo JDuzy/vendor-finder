@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class ImageDto(
     @field:Json(name = "id")
-    val id: Long?,
+    val id: Long,
     @field:Json(name = "name")
     val name: String?,
     @field:Json(name = "alternative_text")
