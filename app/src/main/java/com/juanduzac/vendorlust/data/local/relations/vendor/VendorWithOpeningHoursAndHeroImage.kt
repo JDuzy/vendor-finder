@@ -1,23 +1,26 @@
-package com.juanduzac.vendorlust.data.local.relations
+package com.juanduzac.vendorlust.data.local.relations.vendor
 
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.juanduzac.vendorlust.data.local.entities.ImageEntity
+import com.juanduzac.vendorlust.data.local.entities.OpeningHoursInWeekEntity
 import com.juanduzac.vendorlust.data.local.entities.VendorEntity
+import com.juanduzac.vendorlust.data.local.relations.OpeningHoursInWeekWithOpeningHoursInDay
 
 data class VendorWithOpeningHoursAndHeroImage(
     @Embedded
-    val vendorEntity: VendorEntity,
+    var vendorEntity: VendorEntity,
 
     @Relation(
-        parentColumn = "id",
+        entity = OpeningHoursInWeekEntity::class,
+        parentColumn = "vendorId",
         entityColumn = "vendorId"
     )
-    val openingHoursInWeekWithOpeningHoursInDay: VendorAndOpeningHoursInWeekWithOpeningHoursInDay,
+    var openingHours: OpeningHoursInWeekWithOpeningHoursInDay,
 
     @Relation(
-        parentColumn = "id",
+        parentColumn = "vendorId",
         entityColumn = "vendorId"
     )
-    val imageEntity: ImageEntity
+    var imageEntity: ImageEntity
 )
