@@ -1,4 +1,7 @@
 package com.juanduzac.vendorlust
 
-class VendorLustApplication {
-}
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class VendorLustApplication : Application()
