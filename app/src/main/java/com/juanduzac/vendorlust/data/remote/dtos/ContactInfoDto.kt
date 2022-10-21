@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class ContactInfoDto(
     @field:Json(name = "id")
-    val id: Int?,
+    val id: Long,
     @field:Json(name = "phone_number")
     val phoneNumber: String?,
     @field:Json(name = "email_address")
