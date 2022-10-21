@@ -13,7 +13,10 @@ fun OpeningHoursInDayDto.toOpeningHoursInDay(): OpeningHoursInDay {
     )
 }
 
-fun OpeningHoursInDayDto.toOpeningHoursInDayEntity(dayOfWeek: String, openingHoursInWeekId: Long): OpeningHoursInDayEntity {
+fun OpeningHoursInDayDto.toOpeningHoursInDayEntity(
+    dayOfWeek: String,
+    openingHoursInWeekId: Long
+): OpeningHoursInDayEntity {
     return OpeningHoursInDayEntity(
         openingHoursInDayId = id,
         openingHoursInWeekId = openingHoursInWeekId,

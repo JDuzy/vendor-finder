@@ -77,7 +77,9 @@ class VendorsRepositoryImpl @Inject constructor(
             with(db) {
 
                 vendorDto.contactInfoDto?.let { contactInfoDto ->
-                    contactInfoDao.insertContactInfo(contactInfoDto.toContactInfoEntity(vendorDto.id))
+                    contactInfoDao.insertContactInfo(
+                        contactInfoDto.toContactInfoEntity(vendorDto.id)
+                    )
                 }
 
                 vendorDto.galleryDto?.let { galleryItemDtos ->
@@ -108,7 +110,6 @@ class VendorsRepositoryImpl @Inject constructor(
                 }
 
                 vendorDao.insertVendor(vendorDto.toVendorEntity())
-
             }
         }
     }
@@ -160,7 +161,9 @@ class VendorsRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun fetchVendorsFromRemote(flowCollector: FlowCollector<Any>): List<VendorDto>? {
+    private suspend fun fetchVendorsFromRemote(
+        flowCollector: FlowCollector<Any>
+    ): List<VendorDto>? {
         return try {
             api.getVendors()
         } catch (e: IOException) {
@@ -173,5 +176,4 @@ class VendorsRepositoryImpl @Inject constructor(
             null
         }
     }
-
 }

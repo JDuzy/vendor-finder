@@ -1,7 +1,6 @@
 package com.juanduzac.vendorlust.data.remote.api
 
 import com.juanduzac.vendorlust.data.remote.dtos.VendorDto
-import com.juanduzac.vendorlust.data.remote.dtos.VendorsResponseDto
 import retrofit2.http.GET
 
 interface VendorsApi {
