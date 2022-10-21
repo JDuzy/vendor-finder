@@ -22,13 +22,13 @@ object AppModule {
     @Provides
     @Singleton
     fun provideVendorsApi(): VendorsApi {
-        val logging = HttpLoggingInterceptor()
-// set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        // val logging = HttpLoggingInterceptor()
+        // set your desired log level
+        // logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         val httpClient = OkHttpClient.Builder()
-// add your other interceptors …
-// add logging as last interceptor
-        httpClient.addInterceptor(logging)
+        // add your other interceptors …
+        // add logging as last interceptor
+        // httpClient.addInterceptor(logging)
         return Retrofit.Builder()
             .baseUrl("https://gist.githubusercontent.com/")
             .addConverterFactory(MoshiConverterFactory.create())
