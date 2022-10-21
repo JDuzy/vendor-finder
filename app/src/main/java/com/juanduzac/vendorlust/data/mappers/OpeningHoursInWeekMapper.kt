@@ -1,9 +1,6 @@
 package com.juanduzac.vendorlust.data.mappers
 
-import com.juanduzac.vendorlust.data.local.entities.OpeningHoursInDayEntity
-import com.juanduzac.vendorlust.data.remote.dtos.OpeningHoursInDayDto
 import com.juanduzac.vendorlust.data.remote.dtos.OpeningHoursInWeekDto
-import com.juanduzac.vendorlust.domain.model.OpeningHoursInDay
 import com.juanduzac.vendorlust.domain.model.OpeningHoursInWeek
 
 fun OpeningHoursInWeekDto.toOpeningHoursInWeek(): OpeningHoursInWeek {
@@ -16,23 +13,5 @@ fun OpeningHoursInWeekDto.toOpeningHoursInWeek(): OpeningHoursInWeek {
         friday = friday?.map { it.toOpeningHoursInDay() },
         saturday = saturday?.map { it.toOpeningHoursInDay() },
         sunday = sunday?.map { it.toOpeningHoursInDay() },
-    )
-}
-
-fun OpeningHoursInDayDto.toOpeningHoursInDay(): OpeningHoursInDay {
-    return OpeningHoursInDay(
-        id = id,
-        opensAt = opensAt,
-        closesAt = closesAt,
-        closesLate = closesLate
-    )
-}
-
-fun OpeningHoursInDayEntity.toOpeningHoursInDay(): OpeningHoursInDay {
-    return OpeningHoursInDay(
-        id = openingHoursInDayId,
-        opensAt = opensAt,
-        closesAt = closesAt,
-        closesLate = closesLate
     )
 }

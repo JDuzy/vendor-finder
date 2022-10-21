@@ -40,17 +40,18 @@ fun VendorsResponseDto.toVendorsResponse(): VendorsResponse {
 
 fun VendorWithOpeningHoursAndHeroImage.toVendor(): Vendor {
 
-    val openingHoursMapped = OpeningHoursInWeek(
-        id = openingHours.openingHoursInWeekEntity.openingHoursInWeekId,
-        monday = filterOpeningHours("monday", openingHours),
-        tuesday = filterOpeningHours("tuesday", openingHours),
-        wednesday = filterOpeningHours("wednesday", openingHours),
-        thursday = filterOpeningHours("thursday", openingHours),
-        friday = filterOpeningHours("friday", openingHours),
-        saturday = filterOpeningHours("saturday", openingHours),
-        sunday = filterOpeningHours("sunday", openingHours),
-
-    )
+    val openingHoursMapped = openingHours?.let {
+        OpeningHoursInWeek(
+            id = it.openingHoursInWeekEntity.openingHoursInWeekId,
+            monday = filterOpeningHours("monday", it),
+            tuesday = filterOpeningHours("tuesday", it),
+            wednesday = filterOpeningHours("wednesday", it),
+            thursday = filterOpeningHours("thursday", it),
+            friday = filterOpeningHours("friday", it),
+            saturday = filterOpeningHours("saturday", it),
+            sunday = filterOpeningHours("sunday", it)
+        )
+    }
 
     return Vendor(
         id = vendorEntity.vendorId,
@@ -60,7 +61,7 @@ fun VendorWithOpeningHoursAndHeroImage.toVendor(): Vendor {
         contactInfo = null,
         gallery = null,
         openingHours = openingHoursMapped,
-        heroImage = imageEntity.toImage()
+        heroImage = imageEntity?.toImage()
     )
 }
 
@@ -68,7 +69,7 @@ fun filterOpeningHours(
     day: String,
     openingHours: OpeningHoursInWeekWithOpeningHoursInDay
 ): List<OpeningHoursInDay> {
-    return openingHours.openingHoursInDayEntities.filter { it.dayOfWeek == day.toUpperCase() }
+    return openingHours.openingHoursInDayEntities.filter { it.dayOfWeek == day.uppercase() }
         .map { it.toOpeningHoursInDay() }
 }
 
