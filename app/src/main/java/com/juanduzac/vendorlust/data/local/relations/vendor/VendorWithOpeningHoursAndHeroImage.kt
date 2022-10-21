@@ -16,11 +16,11 @@ data class VendorWithOpeningHoursAndHeroImage(
         parentColumn = "vendorId",
         entityColumn = "vendorId"
     )
-    var openingHours: OpeningHoursInWeekWithOpeningHoursInDay,
+    var openingHours: OpeningHoursInWeekWithOpeningHoursInDay?,
 
     @Relation(
         parentColumn = "vendorId",
         entityColumn = "vendorId"
     )
-    var imageEntity: ImageEntity
+    var imageEntity: ImageEntity?
 )
