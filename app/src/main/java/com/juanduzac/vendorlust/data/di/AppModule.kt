@@ -1,5 +1,8 @@
 package com.juanduzac.vendorlust.data.di
 
+import android.app.Application
+import androidx.room.Room
+import com.juanduzac.vendorlust.data.local.VendorDatabase
 import com.juanduzac.vendorlust.data.remote.api.VendorsApi
 import dagger.Module
 import dagger.Provides
@@ -32,5 +35,15 @@ object AppModule {
             .client(httpClient.build())
             .build()
             .create()
+    }
+
+    @Provides
+    @Singleton
+    fun providesVendorDatabase(app: Application): VendorDatabase {
+        return Room.databaseBuilder(
+            app,
+            VendorDatabase::class.java,
+            "vendorsdb"
+        ).build()
     }
 }
