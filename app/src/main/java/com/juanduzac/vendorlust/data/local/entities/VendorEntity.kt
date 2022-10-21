@@ -1,21 +1,13 @@
-package com.juanduzac.vendorlust.data.local
+package com.juanduzac.vendorlust.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.juanduzac.vendorlust.domain.model.ContactInfo
-import com.juanduzac.vendorlust.domain.model.GalleryItem
-import com.juanduzac.vendorlust.domain.model.Image
-import com.juanduzac.vendorlust.domain.model.OpeningHoursInWeek
 
 @Entity
 data class VendorEntity(
     @PrimaryKey
-    val id: Int? = null,
-    val displayName: String?,
-    val name: String?,
-    val description: String?,
-    val contactInfo: ContactInfo?,
-    val gallery: List<GalleryItem>?,
-    val openingHours: OpeningHoursInWeek?,
-    val heroImage: Image?
+    val vendorId: Long? = null,
+    val displayName: String? = null,
+    val name: String? = null,
+    val description: String? = null,
 )
