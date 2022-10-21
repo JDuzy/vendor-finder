@@ -1,7 +1,6 @@
 package com.juanduzac.vendorlust.domain.model
 
 data class Address(
-    val id: Int?,
     val addressLine1: String?,
     val addressLine2: String?,
     val city: String?,
