@@ -3,8 +3,6 @@ package com.juanduzac.vendorlust.data.remote.dtos
 import com.squareup.moshi.Json
 
 data class AddressDto(
-    @field:Json(name = "id")
-    val id: Int?,
     @field:Json(name = "address_line_1")
     val addressLine1: String?,
     @field:Json(name = "address_line_2")

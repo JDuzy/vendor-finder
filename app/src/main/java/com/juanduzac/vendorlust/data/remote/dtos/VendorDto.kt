@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class VendorDto(
     @field:Json(name = "id")
-    val id: Int?,
+    val id: Long,
     @field:Json(name = "display_name")
     val displayName: String?,
     @field:Json(name = "name")
