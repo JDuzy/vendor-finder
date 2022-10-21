@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class OpeningHoursInWeekDto(
     @field:Json(name = "id")
-    val id: Int?,
+    val id: Long?,
     @field:Json(name = "monday")
     val monday: List<OpeningHoursInDayDto>?,
     @field:Json(name = "tuesday")

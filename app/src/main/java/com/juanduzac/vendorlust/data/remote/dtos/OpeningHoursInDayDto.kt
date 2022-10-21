@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class OpeningHoursInDayDto(
     @field:Json(name = "id")
-    val id: Int?,
+    val id: Long?,
     @field:Json(name = "opens_at")
     val opensAt: String?,
     @field:Json(name = "closes_at")
