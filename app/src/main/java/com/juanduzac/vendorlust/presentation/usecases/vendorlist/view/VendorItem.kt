@@ -129,7 +129,8 @@ fun PreviewVendorItem() {
                     url = "https://axp-cms-nobu-stack-strapiapps3bucket-172yzo4e7x7hw.s3.eu-west-1.amazonaws.com/small_NHMB_Faena_2_c8f1ecc1ed.jpg"
                 )
             ),
-            true
+            true,
+            {}
         )
         Spacer(modifier = Modifier.height(8.dp))
         VendorItem(
@@ -139,7 +140,8 @@ fun PreviewVendorItem() {
                     url = "https://axp-cms-nobu-stack-strapiapps3bucket-172yzo4e7x7hw.s3.eu-west-1.amazonaws.com/small_NHMB_Faena_2_c8f1ecc1ed.jpg"
                 )
             ),
-            false
+            false,
+            {}
         )
     }
 }
