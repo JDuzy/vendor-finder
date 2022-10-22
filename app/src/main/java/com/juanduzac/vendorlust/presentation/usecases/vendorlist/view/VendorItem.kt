@@ -43,7 +43,8 @@ fun VendorItem(
 ) {
     Card(
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable { onClick(vendor) },
         elevation = 2.dp,
         backgroundColor = Color.White,
         shape = RoundedCornerShape(16.dp)
@@ -51,8 +52,7 @@ fun VendorItem(
         Row(
             modifier = Modifier
                 .padding(8.dp)
-                .fillMaxWidth()
-                .clickable { onClick(vendor) },
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
