@@ -1,4 +1,4 @@
-package com.juanduzac.vendorlust.presentation.usecases.vendordetail
+package com.juanduzac.vendorlust.presentation.usecases.vendorlist
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
