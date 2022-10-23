@@ -8,5 +8,10 @@ data class Vendor(
     val contactInfo: ContactInfo? = null,
     val gallery: List<GalleryItem>? = null,
     val openingHours: OpeningHoursInWeek? = null,
-    val heroImage: Image?  = null
-)
+    val heroImage: Image? = null
+) {
+
+    fun isOpen(): Boolean {
+        return true // TODO IMPLEMENT
+    }
+}
