@@ -19,11 +19,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
-import com.juanduzac.vendorlust.domain.model.Vendor
 import com.juanduzac.vendorlust.presentation.navigation.Screen
 import com.juanduzac.vendorlust.presentation.usecases.vendorlist.VendorListViewModel
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 @Composable
 fun VendorListScreen(
@@ -55,8 +52,10 @@ fun VendorListScreen(
                 singleLine = true
             )
 
-            SwipeRefresh(state = swipeRefreshState,
-                onRefresh = { viewModel.getVendorsList(true) }) {
+            SwipeRefresh(
+                state = swipeRefreshState,
+                onRefresh = { viewModel.getVendorsList(true) }
+            ) {
                 viewModel.vendorsResponse.vendors?.let { vendors ->
                     LazyColumn(modifier = Modifier.padding(top = 12.dp)) {
                         items(vendors) { vendor ->

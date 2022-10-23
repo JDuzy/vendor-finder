@@ -3,7 +3,6 @@ package com.juanduzac.vendorlust.domain.model
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-
 data class Vendor(
     val id: Long? = null,
     val displayName: String? = null,

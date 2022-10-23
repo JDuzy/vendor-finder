@@ -1,6 +1,6 @@
 package com.juanduzac.vendorlust.presentation.navigation
 
-sealed class Screen(val route: String){
+sealed class Screen(val route: String) {
     object VendorListScreen : Screen("vendor_list_screen")
     object VendorDetailScreen : Screen("vendor_detail_screen")
 

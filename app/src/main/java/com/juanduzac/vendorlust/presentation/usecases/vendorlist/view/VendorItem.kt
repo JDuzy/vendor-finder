@@ -87,10 +87,8 @@ fun VendorItem(
             Spacer(modifier = Modifier.width(8.dp))
 
             OpenOrClosedView(Modifier.weight(1f), isOpen)
-
         }
     }
-
 }
 
 @Composable
@@ -116,7 +114,6 @@ private fun PreviewOpenOrClosedView() {
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewVendorItem() {
@@ -129,7 +126,9 @@ fun PreviewVendorItem() {
             vendor = Vendor(
                 name = "Telefonia Claro",
                 heroImage = Image(
-                    url = "https://axp-cms-nobu-stack-strapiapps3bucket-172yzo4e7x7hw.s3.eu-west-1.amazonaws.com/small_NHMB_Faena_2_c8f1ecc1ed.jpg"
+                    url =
+                    "https://axp-cms-nobu-stack-strapiapps3bucket-172yzo4e7x7hw" +
+                        ".s3.eu-west-1.amazonaws.com/small_NHMB_Faena_2_c8f1ecc1ed.jpg"
                 )
             ),
             true,
@@ -140,7 +139,9 @@ fun PreviewVendorItem() {
             vendor = Vendor(
                 name = "Tarjeta de credito mastercard",
                 heroImage = Image(
-                    url = "https://axp-cms-nobu-stack-strapiapps3bucket-172yzo4e7x7hw.s3.eu-west-1.amazonaws.com/small_NHMB_Faena_2_c8f1ecc1ed.jpg"
+                    url =
+                    "https://axp-cms-nobu-stack-strapiapps3bucket-172yzo4e7x7hw.s3" +
+                        ".eu-west-1.amazonaws.com/small_NHMB_Faena_2_c8f1ecc1ed.jpg"
                 )
             ),
             false,

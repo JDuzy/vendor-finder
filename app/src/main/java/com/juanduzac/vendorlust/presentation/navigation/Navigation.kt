@@ -31,7 +31,7 @@ fun Navigation(
             )
         ) { entry ->
             Text("Detail screen for vendor with id ${entry.arguments?.getLong(VENDOR_ID)}")
-            //VendorDetailsScreen(shopsListViewModel, entry.arguments?.getInt("shopIndex"))
+            // VendorDetailsScreen(shopsListViewModel, entry.arguments?.getInt("shopIndex"))
         }
     }
 }

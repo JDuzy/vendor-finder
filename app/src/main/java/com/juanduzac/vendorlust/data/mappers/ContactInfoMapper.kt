@@ -27,7 +27,7 @@ fun ContactInfoDto.toContactInfoEntity(vendorId: Long): ContactInfoEntity {
     )
 }
 
-fun ContactInfoEntity.toContactInfo(): ContactInfo{
+fun ContactInfoEntity.toContactInfo(): ContactInfo {
     return ContactInfo(
         id = contactInfoId,
         phoneNumber = phoneNumber,

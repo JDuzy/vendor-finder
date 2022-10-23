@@ -1,7 +1,5 @@
 package com.juanduzac.vendorlust.domain.model
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.time.DayOfWeek
 
 data class OpeningHoursInWeek(
