@@ -26,3 +26,14 @@ fun ContactInfoDto.toContactInfoEntity(vendorId: Long): ContactInfoEntity {
         address = addressDto?.toAddress()
     )
 }
+
+fun ContactInfoEntity.toContactInfo(): ContactInfo {
+    return ContactInfo(
+        id = contactInfoId,
+        phoneNumber = phoneNumber,
+        emailAddress = emailAddress,
+        websiteUrl = websiteUrl,
+        location = location,
+        address = address
+    )
+}

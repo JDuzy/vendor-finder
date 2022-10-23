@@ -1,12 +1,12 @@
 package com.juanduzac.vendorlust.domain.model
 
 data class Image(
-    val id: Long?,
-    val name: String?,
-    val alternativeText: String?,
-    val caption: String?,
-    val width: Int?,
-    val height: Int?,
-    val url: String?,
-    val previewUrl: String?,
+    val id: Long? = null,
+    val name: String? = null,
+    val alternativeText: String? = null,
+    val caption: String? = null,
+    val width: Int? = null,
+    val height: Int? = null,
+    val url: String? = null,
+    val previewUrl: String? = null,
 )

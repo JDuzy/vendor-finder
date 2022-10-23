@@ -2,6 +2,7 @@ package com.juanduzac.vendorlust.data.mappers
 
 import com.juanduzac.vendorlust.data.local.entities.VendorEntity
 import com.juanduzac.vendorlust.data.local.relations.OpeningHoursInWeekWithOpeningHoursInDay
+import com.juanduzac.vendorlust.data.local.relations.vendor.VendorWithDetail
 import com.juanduzac.vendorlust.data.local.relations.vendor.VendorWithOpeningHoursAndHeroImage
 import com.juanduzac.vendorlust.data.remote.dtos.VendorDto
 import com.juanduzac.vendorlust.data.remote.dtos.VendorsResponseDto
@@ -63,6 +64,35 @@ fun VendorWithOpeningHoursAndHeroImage.toVendor(): Vendor {
         openingHours = openingHoursMapped,
         heroImage = imageEntity?.toImage()
     )
+}
+
+fun VendorWithDetail.toVendor(): Vendor {
+
+    val openingHoursMapped = openingHours.let {
+        OpeningHoursInWeek(
+            id = it.openingHoursInWeekEntity.openingHoursInWeekId,
+            monday = filterOpeningHours("monday", it),
+            tuesday = filterOpeningHours("tuesday", it),
+            wednesday = filterOpeningHours("wednesday", it),
+            thursday = filterOpeningHours("thursday", it),
+            friday = filterOpeningHours("friday", it),
+            saturday = filterOpeningHours("saturday", it),
+            sunday = filterOpeningHours("sunday", it)
+        )
+    }
+
+    with(vendorEntity) {
+        return Vendor(
+            id = vendorId,
+            displayName = displayName,
+            name = name,
+            description = description,
+            contactInfo = contactInfo.toContactInfo(),
+            gallery = galleryItems.map { it.toGalleryItem() },
+            openingHours = openingHoursMapped,
+            heroImage = heroImage.toImage()
+        )
+    }
 }
 
 fun filterOpeningHours(
