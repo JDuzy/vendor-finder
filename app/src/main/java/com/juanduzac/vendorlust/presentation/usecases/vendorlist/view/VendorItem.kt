@@ -1,5 +1,6 @@
 package com.juanduzac.vendorlust.presentation.usecases.vendorlist.view
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -67,6 +68,8 @@ fun VendorItem(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
                     .size(52.dp)
+                    .border(2.dp, Color.Gray, RoundedCornerShape(16.dp))
+
             )
 
             Spacer(modifier = Modifier.width(16.dp))

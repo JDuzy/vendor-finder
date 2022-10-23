@@ -10,6 +10,7 @@ import com.juanduzac.vendorlust.data.mappers.toVendorEntity
 import com.juanduzac.vendorlust.data.remote.api.VendorsApi
 import com.juanduzac.vendorlust.data.remote.dtos.OpeningHoursInWeekDto
 import com.juanduzac.vendorlust.data.remote.dtos.VendorDto
+import com.juanduzac.vendorlust.domain.model.Vendor
 import com.juanduzac.vendorlust.domain.model.VendorsResponse
 import com.juanduzac.vendorlust.domain.repository.VendorsRepository
 import com.juanduzac.vendorlust.domain.util.Resource
@@ -70,6 +71,20 @@ class VendorsRepositoryImpl @Inject constructor(
                 emit(Resource.Loading<VendorsResponse>(false))
             }
         } as Flow<Resource<VendorsResponse>>
+    }
+
+    override suspend fun getVendorDetail(vendorId: Long): Flow<Resource<Vendor>> {
+        return flow {
+            emit(Resource.Loading(true))
+            val vendorEntity = vendorDao.getVendorDetails(vendorId)
+            val vendor = vendorEntity.toVendor()
+            emit(
+                Resource.Success(
+                    data = vendor
+                )
+            )
+            emit(Resource.Loading(false))
+        }
     }
 
     private suspend fun insertVendorsInCascade(vendorDtos: List<VendorDto>) {
