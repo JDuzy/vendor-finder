@@ -1,4 +1,4 @@
-package com.juanduzac.vendorlust.presentation.usecases.vendordetail
+package com.juanduzac.vendorlust.presentation.usecases.vendorlist
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,8 +10,10 @@ import com.juanduzac.vendorlust.domain.repository.VendorsRepository
 import com.juanduzac.vendorlust.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -26,8 +28,16 @@ class VendorListViewModel @Inject constructor(
 
     private var searchJob: Job? = null
 
-    fun getVendorsList(fetchFromRemote: Boolean = false, query: String = searchQuery) {
-        viewModelScope.launch {
+    init {
+        getVendorsList()
+    }
+
+    fun getVendorsList(
+        fetchFromRemote: Boolean = false,
+        query: String = searchQuery,
+        scope: CoroutineScope? = viewModelScope
+    ) {
+        scope?.launch {
             repository
                 .getVendors(fetchFromRemote, query)
                 .collect { result ->
@@ -50,7 +60,7 @@ class VendorListViewModel @Inject constructor(
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(500L)
-            getVendorsList()
+            getVendorsList(scope = this)
         }
     }
 }

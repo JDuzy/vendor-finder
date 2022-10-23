@@ -1,5 +1,7 @@
 package com.juanduzac.vendorlust.domain.model
 
+import java.time.DayOfWeek
+
 data class OpeningHoursInWeek(
     val id: Long?,
     val monday: List<OpeningHoursInDay>?,
@@ -9,4 +11,18 @@ data class OpeningHoursInWeek(
     val friday: List<OpeningHoursInDay>?,
     val saturday: List<OpeningHoursInDay>?,
     val sunday: List<OpeningHoursInDay>?,
-)
+) {
+
+    fun getOpeningHoursForDay(dayOfWeek: DayOfWeek): List<OpeningHoursInDay>? {
+        return when (dayOfWeek.value) {
+            0 -> monday
+            1 -> tuesday
+            2 -> wednesday
+            3 -> thursday
+            4 -> friday
+            5 -> saturday
+            6 -> sunday
+            else -> null
+        }
+    }
+}
