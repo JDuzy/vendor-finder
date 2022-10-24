@@ -25,8 +25,8 @@ interface VendorDao {
     @Query("SELECT * FROM vendorentity")
     suspend fun getVendorsWithOpeningHoursAndHeroImage(): List<VendorWithOpeningHoursAndHeroImage>
 
-    @Transaction
-    @Query("SELECT * FROM vendorentity WHERE LOWER(name) LIKE '%' || LOWER(:query) || '%'")
+    @Transaction //TODO ASK 'AND' OR 'OR' FOR QUERY
+    @Query("SELECT * FROM vendorentity WHERE LOWER(name) LIKE '%' || LOWER(:query) || '%' OR LOWER(description) LIKE '%' || LOWER(:query) || '%'")
     suspend fun searchVendorsWithOpeningHoursAndHeroImage(
         query: String
     ): List<VendorWithOpeningHoursAndHeroImage>

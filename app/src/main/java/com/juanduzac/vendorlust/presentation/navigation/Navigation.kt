@@ -13,14 +13,23 @@ import com.juanduzac.vendorlust.presentation.usecases.vendorlist.view.VendorList
 @Composable
 fun Navigation(
     navController: NavHostController,
-    viewModel: VendorListViewModel = hiltViewModel()
+    viewModel: VendorListViewModel = hiltViewModel(),
+    startCallIntent: (String) -> Unit,
+    startWebIntent: (String) -> Unit,
+    startEmailIntent: (String) -> Unit
 ) {
     NavHost(navController = navController, startDestination = Screen.VendorListScreen.route) {
         composable(route = Screen.VendorListScreen.route) {
             VendorListScreen(navController, viewModel)
         }
         composable(route = Screen.VendorDetailScreen.route) {
-            VendorDetailScreen(navController, viewModel.selectedVendor)
+            VendorDetailScreen(
+                navController,
+                viewModel.selectedVendor,
+                startCallIntent,
+                startWebIntent,
+                startEmailIntent
+            )
         }
     }
 }
