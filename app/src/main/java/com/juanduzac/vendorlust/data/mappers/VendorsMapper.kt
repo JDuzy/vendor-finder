@@ -68,7 +68,7 @@ fun VendorWithOpeningHoursAndHeroImage.toVendor(): Vendor {
 
 fun VendorWithDetail.toVendor(): Vendor {
 
-    val openingHoursMapped = openingHours.let {
+    val openingHoursMapped = openingHours?.let {
         OpeningHoursInWeek(
             id = it.openingHoursInWeekEntity.openingHoursInWeekId,
             monday = filterOpeningHours("monday", it),
