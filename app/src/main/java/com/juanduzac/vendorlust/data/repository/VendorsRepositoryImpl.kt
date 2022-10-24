@@ -2,6 +2,7 @@ package com.juanduzac.vendorlust.data.repository
 
 import com.juanduzac.vendorlust.data.local.VendorDatabase
 import com.juanduzac.vendorlust.data.mappers.toContactInfoEntity
+import com.juanduzac.vendorlust.data.mappers.toEntity
 import com.juanduzac.vendorlust.data.mappers.toGalleryItemEntity
 import com.juanduzac.vendorlust.data.mappers.toImageEntity
 import com.juanduzac.vendorlust.data.mappers.toOpeningHoursInDayEntity
@@ -121,7 +122,7 @@ class VendorsRepositoryImpl @Inject constructor(
                 }
 
                 vendorDto.openingHoursDto?.let { openingHoursInWeekDto ->
-                    insertOpeningHours(openingHoursInWeekDto)
+                    insertOpeningHours(openingHoursInWeekDto, vendorDto.id)
                 }
 
                 vendorDao.insertVendor(vendorDto.toVendorEntity())
@@ -129,7 +130,10 @@ class VendorsRepositoryImpl @Inject constructor(
         }
     }
 
-    private suspend fun insertOpeningHours(openingHoursInWeekDto: OpeningHoursInWeekDto) {
+    private suspend fun insertOpeningHours(
+        openingHoursInWeekDto: OpeningHoursInWeekDto,
+        vendorId: Long
+    ) {
         openingHoursInWeekDto.monday?.forEach { openingHoursInDayDto ->
             db.openingHoursInDayDao.insertOpeningHoursInDay(
                 openingHoursInDayDto.toOpeningHoursInDayEntity("monday", openingHoursInWeekDto.id)
@@ -174,6 +178,10 @@ class VendorsRepositoryImpl @Inject constructor(
                 openingHoursInDayDto.toOpeningHoursInDayEntity("sunday", openingHoursInWeekDto.id)
             )
         }
+
+        db.openingHoursInWeekDao.insertOpeningHoursInWeek(
+            openingHoursInWeekDto.toEntity(vendorId)
+        )
     }
 
     private suspend fun fetchVendorsFromRemote(

@@ -40,13 +40,16 @@ val vendorExample = Vendor(
         GalleryItem(image = Image(url = galleryImage1)),
     ),
     openingHours = OpeningHoursInWeek(
-        saturday = listOf(
-            OpeningHoursInDay(opensAt = "07:00:00", closesAt = "12:00:00"),
-            OpeningHoursInDay(opensAt = "13:00:00", closesAt = "19:00:00")
-        ),
-        sunday = listOf(
-            OpeningHoursInDay(opensAt = "07:00:00", closesAt = "12:00:00"),
-            OpeningHoursInDay(opensAt = "13:00:00", closesAt = "19:00:00")
+        weeklyOpeningHours =  listOf(
+            listOf(
+                OpeningHoursInDay(opensAt = "07:00:00", closesAt = "12:00:00"),
+                OpeningHoursInDay(opensAt = "13:00:00", closesAt = "19:00:00")
+            ),
+            listOf(
+                OpeningHoursInDay(opensAt = "07:00:00", closesAt = "12:00:00"),
+                OpeningHoursInDay(opensAt = "13:00:00", closesAt = "19:00:00")
+            ),
         )
+
     )
 )
