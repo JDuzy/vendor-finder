@@ -70,10 +70,10 @@ fun VendorWithDetail.toVendor(): Vendor {
             displayName = displayName,
             name = name,
             description = description,
-            contactInfo = contactInfo.toContactInfo(),
-            gallery = galleryItems.map { it.toGalleryItem() },
+            contactInfo = contactInfo?.toContactInfo(),
+            gallery = galleryItems?.map { it.toGalleryItem() },
             openingHours = openingHoursMapped,
-            heroImage = heroImage.toImage()
+            heroImage = heroImage?.toImage()
         )
     }
 }
