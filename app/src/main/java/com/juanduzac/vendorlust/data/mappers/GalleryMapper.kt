@@ -21,7 +21,7 @@ fun GalleryItemDto.toGalleryItemEntity(vendorId: Long): GalleryItemEntity {
 
 fun GalleryItemAndImage.toGalleryItem(): GalleryItem {
     return GalleryItem(
-        id = galleryItemEntity.galleryItemId,
-        image = imageEntity.toImage()
+        id = galleryItemEntity?.galleryItemId,
+        image = imageEntity?.toImage()
     )
 }

@@ -1,10 +1,10 @@
 package com.juanduzac.vendorlust.domain.model
 
 data class ContactInfo(
-    val id: Long?,
-    val phoneNumber: String?,
-    val emailAddress: String?,
-    val websiteUrl: String?,
-    val location: Location?,
-    val address: Address?,
+    val id: Long? = null,
+    val phoneNumber: String? = null,
+    val emailAddress: String? = null,
+    val websiteUrl: String? = null,
+    val location: Location? = null,
+    val address: Address? = null,
 )

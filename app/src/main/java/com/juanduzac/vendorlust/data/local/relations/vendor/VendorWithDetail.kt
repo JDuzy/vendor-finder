@@ -25,7 +25,7 @@ data class VendorWithDetail(
         parentColumn = "vendorId",
         entityColumn = "vendorId"
     )
-    var openingHours: OpeningHoursInWeekWithOpeningHoursInDay,
+    var openingHours: OpeningHoursInWeekWithOpeningHoursInDay?,
 
     @Relation(
         entity = GalleryItemEntity::class,
