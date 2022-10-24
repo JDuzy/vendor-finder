@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -23,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -34,21 +33,21 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.juanduzac.vendorlust.domain.model.Image
 import com.juanduzac.vendorlust.domain.model.Vendor
+import com.juanduzac.vendorlust.presentation.ui.theme.LightGray
+import com.juanduzac.vendorlust.presentation.ui.theme.Pink
 
 @Composable
 fun VendorItem(
     vendor: Vendor,
     isOpen: Boolean,
     onClick: (Vendor) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    bottomDivider: Boolean = true
 ) {
-    Card(
+    Row(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick(vendor) },
-        elevation = 2.dp,
-        backgroundColor = Color.White,
-        shape = RoundedCornerShape(16.dp)
     ) {
         Row(
             modifier = Modifier
@@ -68,8 +67,7 @@ fun VendorItem(
                 modifier = Modifier
                     .clip(RoundedCornerShape(16.dp))
                     .size(52.dp)
-                    .border(2.dp, Color.Gray, RoundedCornerShape(16.dp))
-
+                    .border(1.dp, LightGray, RoundedCornerShape(16.dp))
             )
 
             Spacer(modifier = Modifier.width(16.dp))
@@ -89,6 +87,8 @@ fun VendorItem(
             OpenOrClosedView(Modifier.weight(1f), isOpen)
         }
     }
+    if (bottomDivider)
+        Divider(thickness = 1.dp, color =  LightGray)
 }
 
 @Composable
@@ -100,7 +100,7 @@ private fun OpenOrClosedView(modifier: Modifier = Modifier, isOpen: Boolean) {
     ) {
         Text(text = if (isOpen) "Open" else "Closed", style = MaterialTheme.typography.caption)
         Spacer(modifier = Modifier.width(4.dp))
-        Icon(if (isOpen) Icons.Rounded.Check else Icons.Rounded.Close, contentDescription = null)
+        Icon(if (isOpen) Icons.Rounded.Check else Icons.Rounded.Close, contentDescription = null, tint = Pink)
     }
 }
 
