@@ -78,7 +78,7 @@ class VendorsRepositoryImpl @Inject constructor(
         return flow {
             emit(Resource.Loading(true))
             val vendorEntity = vendorDao.getVendorDetails(vendorId)
-            val vendor = vendorEntity.toVendor()
+            val vendor = vendorEntity?.toVendor()
             emit(
                 Resource.Success(
                     data = vendor

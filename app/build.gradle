@@ -51,7 +51,7 @@ android {
 ktlint {
     android = true
     ignoreFailures = false
-    reporters{
+    reporters {
         reporter "plain"
         reporter "checkstyle"
         reporter "sarif"
@@ -72,6 +72,9 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+    // test coroutines
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1'
 
     // Compose accompanist
     implementation "com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha"
