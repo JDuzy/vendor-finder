@@ -6,7 +6,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -93,19 +92,32 @@ import kotlin.math.min
 private const val HttpsString = "https://www."
 
 @Composable
-fun VendorDetailScreen(navController: NavController, vendor: Vendor) {
+fun VendorDetailScreen(
+    navController: NavController,
+    vendor: Vendor,
+    startCallIntent: (String) -> Unit,
+    startWebIntent: (String) -> Unit,
+    startEmailIntent: (String) -> Unit
+
+) {
     val scrollState = rememberLazyListState()
     var isFaved by remember { mutableStateOf(false) }
 
     Box {
-        Content(vendor, scrollState)
+        Content(vendor, scrollState, startCallIntent, startWebIntent, startEmailIntent)
         ParallaxToolbar(vendor, scrollState, isFaved, navController) { isFaved = !isFaved }
     }
 
 }
 
 @Composable
-private fun Content(vendor: Vendor, scrollState: LazyListState) {
+private fun Content(
+    vendor: Vendor,
+    scrollState: LazyListState,
+    startCallIntent: (String) -> Unit,
+    startWebIntent: (String) -> Unit,
+    startEmailIntent: (String) -> Unit
+) {
     LazyColumn(contentPadding = PaddingValues(top = AppbarExpandedHeight), state = scrollState) {
         with(vendor) {
             item {
@@ -119,7 +131,7 @@ private fun Content(vendor: Vendor, scrollState: LazyListState) {
                 }
 
                 contactInfo?.let {
-                    BasicInfo(vendor)
+                    BasicInfo(vendor, startCallIntent, startWebIntent, startEmailIntent)
                 }
 
                 gallery?.let { galleryItems ->
@@ -285,7 +297,12 @@ private fun Description(text: String) {
 }
 
 @Composable
-private fun BasicInfo(vendor: Vendor) {
+private fun BasicInfo(
+    vendor: Vendor,
+    startCallIntent: (String) -> Unit,
+    startWebIntent: (String) -> Unit,
+    startEmailIntent: (String) -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -323,7 +340,9 @@ private fun BasicInfo(vendor: Vendor) {
                     imageVector = Icons.Outlined.Phone,
                     text = number,
                     tint = Pink
-                )
+                ) {
+                    startCallIntent(number)
+                }
             }
 
             emailAddress?.let { email ->
@@ -331,7 +350,9 @@ private fun BasicInfo(vendor: Vendor) {
                     imageVector = Icons.Outlined.Email,
                     text = email,
                     tint = Pink
-                )
+                ){
+                    startEmailIntent(email)
+                }
             }
 
             websiteUrl?.let { url ->
@@ -340,7 +361,9 @@ private fun BasicInfo(vendor: Vendor) {
                     text = url.removePrefix(HttpsString),
                     tint = Pink,
                     dividerBelow = false
-                )
+                ){
+                    startWebIntent(url)
+                }
             }
 
         }
@@ -357,10 +380,11 @@ private fun InfoRow(
     dividerBelow: Boolean = true,
     trailingIcon: ImageVector? = null,
     trailingTint: Color = Gray,
-    trailingRotation: Float = 0f
+    trailingRotation: Float = 0f,
+    onClick: (() -> Unit)? = null
 ) {
     Row(
-        modifier = modifier,
+        modifier = onClick?.let { modifier.then(Modifier.clickable { it() }) } ?: modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(imageVector, null, tint = tint, modifier = Modifier.height(32.dp))
@@ -436,7 +460,10 @@ private fun PreviewScreen() {
     VendorLustTheme {
         VendorDetailScreen(
             rememberNavController(),
-            vendorExample
+            vendorExample,
+            {},
+            {},
+            {}
         )
     }
 
