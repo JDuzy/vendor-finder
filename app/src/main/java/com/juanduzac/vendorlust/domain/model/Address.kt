@@ -1,11 +1,11 @@
 package com.juanduzac.vendorlust.domain.model
 
 data class Address(
-    val addressLine1: String?,
-    val addressLine2: String?,
-    val city: String?,
-    val state: String?,
-    val postalCode: String?,
-    val country: String?,
-    val region: String?,
+    val addressLine1: String? = null,
+    val addressLine2: String? = null,
+    val city: String? = null,
+    val state: String? = null,
+    val postalCode: String? = null,
+    val country: String? = null,
+    val region: String? = null,
 )

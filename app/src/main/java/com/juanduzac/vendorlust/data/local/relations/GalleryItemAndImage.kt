@@ -7,10 +7,10 @@ import com.juanduzac.vendorlust.data.local.entities.ImageEntity
 
 data class GalleryItemAndImage(
     @Embedded
-    var galleryItemEntity: GalleryItemEntity,
+    var galleryItemEntity: GalleryItemEntity?,
     @Relation(
         parentColumn = "galleryItemId",
         entityColumn = "galleryItemId"
     )
-    var imageEntity: ImageEntity
+    var imageEntity: ImageEntity?
 )
