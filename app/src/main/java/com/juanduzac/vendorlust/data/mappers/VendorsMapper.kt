@@ -6,6 +6,7 @@ import com.juanduzac.vendorlust.data.local.relations.vendor.VendorWithDetail
 import com.juanduzac.vendorlust.data.local.relations.vendor.VendorWithOpeningHoursAndHeroImage
 import com.juanduzac.vendorlust.data.remote.dtos.VendorDto
 import com.juanduzac.vendorlust.data.remote.dtos.VendorsResponseDto
+import com.juanduzac.vendorlust.domain.model.Day.*
 import com.juanduzac.vendorlust.domain.model.OpeningHoursInDay
 import com.juanduzac.vendorlust.domain.model.OpeningHoursInWeek
 import com.juanduzac.vendorlust.domain.model.Vendor
@@ -42,16 +43,7 @@ fun VendorsResponseDto.toVendorsResponse(): VendorsResponse {
 fun VendorWithOpeningHoursAndHeroImage.toVendor(): Vendor {
 
     val openingHoursMapped = openingHours?.let {
-        OpeningHoursInWeek(
-            id = it.openingHoursInWeekEntity.openingHoursInWeekId,
-            monday = filterOpeningHours("monday", it),
-            tuesday = filterOpeningHours("tuesday", it),
-            wednesday = filterOpeningHours("wednesday", it),
-            thursday = filterOpeningHours("thursday", it),
-            friday = filterOpeningHours("friday", it),
-            saturday = filterOpeningHours("saturday", it),
-            sunday = filterOpeningHours("sunday", it)
-        )
+        getOpeningHoursInWeek(it)
     }
 
     return Vendor(
@@ -69,16 +61,7 @@ fun VendorWithOpeningHoursAndHeroImage.toVendor(): Vendor {
 fun VendorWithDetail.toVendor(): Vendor {
 
     val openingHoursMapped = openingHours?.let {
-        OpeningHoursInWeek(
-            id = it.openingHoursInWeekEntity.openingHoursInWeekId,
-            monday = filterOpeningHours("monday", it),
-            tuesday = filterOpeningHours("tuesday", it),
-            wednesday = filterOpeningHours("wednesday", it),
-            thursday = filterOpeningHours("thursday", it),
-            friday = filterOpeningHours("friday", it),
-            saturday = filterOpeningHours("saturday", it),
-            sunday = filterOpeningHours("sunday", it)
-        )
+        getOpeningHoursInWeek(it)
     }
 
     with(vendorEntity) {
@@ -95,7 +78,7 @@ fun VendorWithDetail.toVendor(): Vendor {
     }
 }
 
-fun filterOpeningHours(
+private fun filterOpeningHours(
     day: String,
     openingHours: OpeningHoursInWeekWithOpeningHoursInDay
 ): List<OpeningHoursInDay> {
@@ -103,29 +86,21 @@ fun filterOpeningHours(
         .map { it.toOpeningHoursInDay() }
 }
 
-/*
-fun VendorEntity.toVendor(): Vendor {
-    return Vendor(
-        id = id,
-        displayName = displayName,
-        name = name,
-        description = description,
-        contactInfo = contactInfo,
-        gallery = gallery,
-        openingHours = openingHours,
-        heroImage = heroImage
-    )
+private fun getOpeningHoursInWeek(openingHoursInWeekWithOpeningHoursInDay: OpeningHoursInWeekWithOpeningHoursInDay): OpeningHoursInWeek {
+    with(openingHoursInWeekWithOpeningHoursInDay) {
+        return OpeningHoursInWeek(
+            id = this.openingHoursInWeekEntity.openingHoursInWeekId,
+            weeklyOpeningHours = listOf(
+                filterOpeningHours(MONDAY.string, this),
+                filterOpeningHours(TUESDAY.string, this),
+                filterOpeningHours(WEDNESDAY.string, this),
+                filterOpeningHours(THURSDAY.string, this),
+                filterOpeningHours(FRIDAY.string, this),
+                filterOpeningHours(SATURDAY.string, this),
+                filterOpeningHours(SUNDAY.string, this),
+            )
+        )
+    }
 }
 
-fun Vendor.toVendorEntity(): VendorEntity {
-    return VendorEntity(
-        id = id,
-        displayName = displayName,
-        name = name,
-        description = description,
-        contactInfo = contactInfo,
-        gallery = gallery,
-        openingHours = openingHours,
-        heroImage = heroImage
-    )
-}*/
+
