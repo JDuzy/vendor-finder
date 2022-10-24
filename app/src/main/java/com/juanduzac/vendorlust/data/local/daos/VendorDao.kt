@@ -33,5 +33,5 @@ interface VendorDao {
 
     @Transaction
     @Query("SELECT * FROM vendorentity WHERE vendorId = :vendorId")
-    suspend fun getVendorDetails(vendorId: Long): VendorWithDetail
+    suspend fun getVendorDetails(vendorId: Long): VendorWithDetail?
 }

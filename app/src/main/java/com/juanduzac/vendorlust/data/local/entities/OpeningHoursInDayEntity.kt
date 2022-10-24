@@ -8,8 +8,8 @@ data class OpeningHoursInDayEntity(
     @PrimaryKey
     val openingHoursInDayId: Long? = null,
     val openingHoursInWeekId: Long,
-    val opensAt: String?,
-    val closesAt: String?,
-    val closesLate: Boolean?,
-    val dayOfWeek: String?,
+    val opensAt: String? = null,
+    val closesAt: String? = null,
+    val closesLate: Boolean? = null,
+    val dayOfWeek: String?, //TODO Not nullable and refactor to another table
 )

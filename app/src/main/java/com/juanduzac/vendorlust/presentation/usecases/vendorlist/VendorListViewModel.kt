@@ -51,7 +51,7 @@ class VendorListViewModel @Inject constructor(
                         }
                         is Resource.Error -> Unit // TODO Feedback
                         is Resource.Loading -> {
-                            isLoading = true
+                            isLoading = result.isLoading
                         }
                     }
                 }
@@ -79,7 +79,7 @@ class VendorListViewModel @Inject constructor(
                         }
                         is Resource.Error -> Unit // TODO Feedback
                         is Resource.Loading -> {
-                            isLoading = true
+                            isLoading = result.isLoading
                         }
                     }
                 }

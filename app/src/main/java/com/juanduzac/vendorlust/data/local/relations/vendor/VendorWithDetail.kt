@@ -18,7 +18,7 @@ data class VendorWithDetail(
         parentColumn = "vendorId",
         entityColumn = "vendorId"
     )
-    var heroImage: ImageEntity,
+    var heroImage: ImageEntity?,
 
     @Relation(
         entity = OpeningHoursInWeekEntity::class,
@@ -32,11 +32,11 @@ data class VendorWithDetail(
         parentColumn = "vendorId",
         entityColumn = "vendorId"
     )
-    var galleryItems: List<GalleryItemAndImage>,
+    var galleryItems: List<GalleryItemAndImage>?,
 
     @Relation(
         parentColumn = "vendorId",
         entityColumn = "vendorId"
     )
-    var contactInfo: ContactInfoEntity,
+    var contactInfo: ContactInfoEntity?,
 )
