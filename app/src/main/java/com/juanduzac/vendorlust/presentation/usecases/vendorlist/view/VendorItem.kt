@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +36,8 @@ import com.juanduzac.vendorlust.domain.model.Image
 import com.juanduzac.vendorlust.domain.model.Vendor
 import com.juanduzac.vendorlust.presentation.ui.theme.LightGray
 import com.juanduzac.vendorlust.presentation.ui.theme.Pink
+
+const val VendorItemTestTag = "VendorItemTestTag"
 
 @Composable
 fun VendorItem(
@@ -47,7 +50,8 @@ fun VendorItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick(vendor) },
+            .clickable { onClick(vendor) }
+            .testTag(VendorItemTestTag),
     ) {
         Row(
             modifier = Modifier
