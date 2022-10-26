@@ -84,7 +84,6 @@ fun VendorDetailScreen(
         Content(vendor, scrollState, startCallIntent, startWebIntent, startEmailIntent)
         ParallaxToolbar(vendor, scrollState, isFaved, navController) { isFaved = !isFaved }
     }
-
 }
 
 @Composable
@@ -150,7 +149,8 @@ private fun ParallaxToolbar(
             Box(
                 Modifier
                     .height(imageHeight)
-                    .graphicsLayer { alpha = 1f - offsetProgression }) {
+                    .graphicsLayer { alpha = 1f - offsetProgression }
+            ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(vendor.heroImage?.url)
@@ -193,7 +193,6 @@ private fun ParallaxToolbar(
                 )
             }
         }
-
     }
 
     Row(
@@ -275,7 +274,7 @@ private fun BasicInfo(
                     imageVector = Icons.Outlined.Email,
                     text = email,
                     tint = Pink
-                ){
+                ) {
                     startEmailIntent(email)
                 }
             }
@@ -286,7 +285,7 @@ private fun BasicInfo(
                     text = url.removePrefix(HttpsString),
                     tint = Pink,
                     dividerBelow = false
-                ){
+                ) {
                     startWebIntent(url)
                 }
             }
@@ -306,5 +305,4 @@ private fun PreviewScreen() {
             {}
         )
     }
-
 }

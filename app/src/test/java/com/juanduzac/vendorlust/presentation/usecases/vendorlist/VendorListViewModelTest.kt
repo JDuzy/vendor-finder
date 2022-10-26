@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-
 @OptIn(ExperimentalCoroutinesApi::class)
 class VendorListViewModelTest {
 
@@ -22,12 +21,12 @@ class VendorListViewModelTest {
     private lateinit var viewModel: VendorListViewModel
 
     @Before
-    fun setUp(){
+    fun setUp() {
         viewModel = VendorListViewModel(FakeVendorRepository())
     }
 
     @Test
-    fun getVendorsOnInitWhenCreatingTheViewModel(){
+    fun getVendorsOnInitWhenCreatingTheViewModel() {
         runTest {
             advanceUntilIdle()
             assertEquals(listOf(vendorExample), viewModel.vendorsResponse.vendors)
@@ -36,7 +35,7 @@ class VendorListViewModelTest {
     }
 
     @Test
-    fun getVendorDetail(){
+    fun getVendorDetail() {
         runTest {
             assertEquals(Vendor(), viewModel.selectedVendor)
             viewModel.getVendorDetail(1)

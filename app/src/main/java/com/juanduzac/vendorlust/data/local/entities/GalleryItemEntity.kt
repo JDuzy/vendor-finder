@@ -12,7 +12,8 @@ import androidx.room.PrimaryKey
             entity = VendorEntity::class,
             parentColumns = ["vendorId"],
             childColumns = ["vendorId"]
-        )]
+        )
+    ]
 )
 data class GalleryItemEntity(
     @PrimaryKey

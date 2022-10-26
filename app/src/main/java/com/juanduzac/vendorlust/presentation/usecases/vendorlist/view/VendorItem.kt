@@ -92,7 +92,7 @@ fun VendorItem(
         }
     }
     if (bottomDivider)
-        Divider(thickness = 1.dp, color =  LightGray)
+        Divider(thickness = 1.dp, color = LightGray)
 }
 
 @Composable
@@ -104,7 +104,11 @@ private fun OpenOrClosedView(modifier: Modifier = Modifier, isOpen: Boolean) {
     ) {
         Text(text = if (isOpen) "Open" else "Closed", style = MaterialTheme.typography.caption)
         Spacer(modifier = Modifier.width(4.dp))
-        Icon(if (isOpen) Icons.Rounded.Check else Icons.Rounded.Close, contentDescription = null, tint = Pink)
+        Icon(
+            if (isOpen) Icons.Rounded.Check else Icons.Rounded.Close,
+            contentDescription = null,
+            tint = Pink
+        )
     }
 }
 

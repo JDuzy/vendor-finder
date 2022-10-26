@@ -34,23 +34,16 @@ class VendorDaoTest {
     @Before
     fun setUp() {
         db = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            VendorDatabase::class.java
+            ApplicationProvider.getApplicationContext(), VendorDatabase::class.java
         ).allowMainThreadQueries().build()
         dao = db.vendorDao
 
         vendor1 = VendorEntity(
-            1,
-            "display_name",
-            "name1",
-            "desc1"
+            1, "display_name", "name1", "desc1"
         )
 
         vendor2 = VendorEntity(
-            2,
-            "display_name2",
-            "name2",
-            "desc2"
+            2, "display_name2", "name2", "desc2"
         )
     }
 
@@ -144,13 +137,11 @@ class VendorDaoTest {
             )
 
             val openingHoursInWeekEntity1 = OpeningHoursInWeekEntity(
-                openingHoursInWeekId = 1,
-                vendorId = 1
+                openingHoursInWeekId = 1, vendorId = 1
             )
 
             val imageEntity1 = ImageEntity(
-                imageId = 1,
-                vendorId = 1
+                imageId = 1, vendorId = 1
             )
 
             imageDao.insertImage(imageEntity1)
@@ -162,13 +153,19 @@ class VendorDaoTest {
 
             // Assert
             assertEquals(imageEntity1, vendorsList.first().imageEntity)
-            assertEquals(openingHoursInWeekEntity1, vendorsList.first().openingHours?.openingHoursInWeekEntity)
-            assertEquals(openingHoursInDayMondayEntity1, vendorsList.first().openingHours?.openingHoursInDayEntities?.first())
+            assertEquals(
+                openingHoursInWeekEntity1,
+                vendorsList.first().openingHours?.openingHoursInWeekEntity
+            )
+            assertEquals(
+                openingHoursInDayMondayEntity1,
+                vendorsList.first().openingHours?.openingHoursInDayEntities?.first()
+            )
         }
     }
 
     @Test
-    fun given2VendorsName_whenSearchingFor1VendorsName_thenReturnsOnly1Vendor(){
+    fun given2VendorsName_whenSearchingFor1VendorsName_thenReturnsOnly1Vendor() {
         runTest {
             // Arrange
             val vendorsToInsert = listOf(vendor1, vendor2)
@@ -184,7 +181,7 @@ class VendorDaoTest {
     }
 
     @Test
-    fun given2VendorsDescription_whenSearchingFor1VendorsDescription_thenReturnsOnly1Vendor(){
+    fun given2VendorsDescription_whenSearchingFor1VendorsDescription_thenReturnsOnly1Vendor() {
         runTest {
             // Arrange
             val vendorsToInsert = listOf(vendor1, vendor2)
@@ -200,7 +197,7 @@ class VendorDaoTest {
     }
 
     @Test
-    fun givenAVendorWithAGivenIdIsOnDB_whenGettingVendorsDetailByThatId_thenReturnsTheVendorDetail(){
+    fun givenAVendorWithAGivenIdIsOnDB_whenGettingVendorsDetailByThatId_thenReturnsTheVendorDetail() {
         runTest {
             // Arrange
             val vendorsToInsert = listOf(vendor1, vendor2)
@@ -215,7 +212,7 @@ class VendorDaoTest {
     }
 
     @Test
-    fun givenAVendorWithAGivenIdIsOnDB_whenGettingVendorsDetailByWrongId_thenReturnsNull(){
+    fun givenAVendorWithAGivenIdIsOnDB_whenGettingVendorsDetailByWrongId_thenReturnsNull() {
         runTest {
             // Arrange
             val vendorsToInsert = listOf(vendor1, vendor2)
@@ -228,5 +225,4 @@ class VendorDaoTest {
             assertEquals(null, vendorWithDetailById)
         }
     }
-
 }

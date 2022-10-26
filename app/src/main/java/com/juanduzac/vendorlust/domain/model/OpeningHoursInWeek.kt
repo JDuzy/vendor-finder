@@ -1,6 +1,12 @@
 package com.juanduzac.vendorlust.domain.model
 
-import com.juanduzac.vendorlust.domain.model.Day.*
+import com.juanduzac.vendorlust.domain.model.Day.FRIDAY
+import com.juanduzac.vendorlust.domain.model.Day.MONDAY
+import com.juanduzac.vendorlust.domain.model.Day.SATURDAY
+import com.juanduzac.vendorlust.domain.model.Day.SUNDAY
+import com.juanduzac.vendorlust.domain.model.Day.THURSDAY
+import com.juanduzac.vendorlust.domain.model.Day.TUESDAY
+import com.juanduzac.vendorlust.domain.model.Day.WEDNESDAY
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -36,8 +42,9 @@ data class OpeningHoursInWeek(
         weeklyOpeningHours?.forEachIndexed { weekIndex, openingHoursInDay ->
             openingHoursInDay?.let { nonNullOpeningHoursInDay ->
                 var dayString = getDayName(weekIndex) + " "
-                nonNullOpeningHoursInDay.forEachIndexed{ index, openingHour ->
-                    dayString += openingHour.getOpenHoursText() + if (index < openingHoursInDay.size - 1) ", " else ""
+                nonNullOpeningHoursInDay.forEachIndexed { index, openingHour ->
+                    dayString += openingHour
+                        .getOpenHoursText() + if (index < openingHoursInDay.size - 1) ", " else ""
                 }
                 result.add(dayString)
             }
@@ -52,7 +59,8 @@ data class OpeningHoursInWeek(
         var openingHoursString = ""
 
         openingHoursForToday?.forEachIndexed { i, openingHoursToday ->
-            openingHoursString += openingHoursToday.getOpenHoursText() + if (i < openingHoursForToday.size - 1) ", " else ""
+            openingHoursString += openingHoursToday
+                .getOpenHoursText() + if (i < openingHoursForToday.size - 1) ", " else ""
         }
 
         return "$openClosedString $openingHoursString"
