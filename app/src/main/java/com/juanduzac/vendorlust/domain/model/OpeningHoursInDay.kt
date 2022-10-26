@@ -17,6 +17,6 @@ data class OpeningHoursInDay(
         return time.isAfter(openingTime) && time.isBefore(closingTime)
     }
 
-    fun getOpenHoursText()
-    = "${opensAt?.dropLast(3)} - ${closesAt?.dropLast(3)}"
+    fun getOpenHoursText() =
+        "${opensAt?.dropLast(3)} - ${closesAt?.dropLast(3)}"
 }

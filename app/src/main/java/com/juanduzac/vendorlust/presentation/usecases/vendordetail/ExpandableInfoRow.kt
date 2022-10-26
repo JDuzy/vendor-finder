@@ -43,7 +43,8 @@ fun ExpandableInfoRow(
                         delayMillis = 300,
                         easing = LinearOutSlowInEasing
                     )
-                )),
+                )
+        ),
         imageVector = imageVector,
         text = text,
         tint = tint,

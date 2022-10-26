@@ -9,7 +9,6 @@ import com.juanduzac.vendorlust.presentation.usecases.vendordetail.VendorDetailS
 import com.juanduzac.vendorlust.presentation.usecases.vendorlist.VendorListViewModel
 import com.juanduzac.vendorlust.presentation.usecases.vendorlist.view.VendorListScreen
 
-
 @Composable
 fun Navigation(
     navController: NavHostController,
