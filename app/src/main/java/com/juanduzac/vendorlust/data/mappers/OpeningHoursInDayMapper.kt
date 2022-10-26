@@ -2,6 +2,7 @@ package com.juanduzac.vendorlust.data.mappers
 
 import com.juanduzac.vendorlust.data.local.entities.OpeningHoursInDayEntity
 import com.juanduzac.vendorlust.data.remote.dtos.OpeningHoursInDayDto
+import com.juanduzac.vendorlust.domain.model.Day
 import com.juanduzac.vendorlust.domain.model.OpeningHoursInDay
 
 fun OpeningHoursInDayDto.toOpeningHoursInDay(): OpeningHoursInDay {
@@ -14,7 +15,7 @@ fun OpeningHoursInDayDto.toOpeningHoursInDay(): OpeningHoursInDay {
 }
 
 fun OpeningHoursInDayDto.toOpeningHoursInDayEntity(
-    dayOfWeek: String,
+    dayOfWeek: Day,
     openingHoursInWeekId: Long
 ): OpeningHoursInDayEntity {
     return OpeningHoursInDayEntity(
@@ -23,7 +24,7 @@ fun OpeningHoursInDayDto.toOpeningHoursInDayEntity(
         opensAt = opensAt,
         closesAt = closesAt,
         closesLate = closesLate,
-        dayOfWeek = dayOfWeek.uppercase()
+        dayId = dayOfWeek.id
     )
 }
 

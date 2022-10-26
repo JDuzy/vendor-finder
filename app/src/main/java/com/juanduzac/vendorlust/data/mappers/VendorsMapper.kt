@@ -6,6 +6,7 @@ import com.juanduzac.vendorlust.data.local.relations.vendor.VendorWithDetail
 import com.juanduzac.vendorlust.data.local.relations.vendor.VendorWithOpeningHoursAndHeroImage
 import com.juanduzac.vendorlust.data.remote.dtos.VendorDto
 import com.juanduzac.vendorlust.data.remote.dtos.VendorsResponseDto
+import com.juanduzac.vendorlust.domain.model.Day
 import com.juanduzac.vendorlust.domain.model.Day.*
 import com.juanduzac.vendorlust.domain.model.OpeningHoursInDay
 import com.juanduzac.vendorlust.domain.model.OpeningHoursInWeek
@@ -79,10 +80,10 @@ fun VendorWithDetail.toVendor(): Vendor {
 }
 
 private fun filterOpeningHours(
-    day: String,
+    day: Day,
     openingHours: OpeningHoursInWeekWithOpeningHoursInDay
 ): List<OpeningHoursInDay> {
-    return openingHours.openingHoursInDayEntities.filter { it.dayOfWeek == day.uppercase() }
+    return openingHours.openingHoursInDayEntities.filter { it.dayId == day.id }
         .map { it.toOpeningHoursInDay() }
 }
 
@@ -91,13 +92,13 @@ private fun getOpeningHoursInWeek(openingHoursInWeekWithOpeningHoursInDay: Openi
         return OpeningHoursInWeek(
             id = this.openingHoursInWeekEntity.openingHoursInWeekId,
             weeklyOpeningHours = listOf(
-                filterOpeningHours(MONDAY.string, this),
-                filterOpeningHours(TUESDAY.string, this),
-                filterOpeningHours(WEDNESDAY.string, this),
-                filterOpeningHours(THURSDAY.string, this),
-                filterOpeningHours(FRIDAY.string, this),
-                filterOpeningHours(SATURDAY.string, this),
-                filterOpeningHours(SUNDAY.string, this),
+                filterOpeningHours(MONDAY, this),
+                filterOpeningHours(TUESDAY, this),
+                filterOpeningHours(WEDNESDAY, this),
+                filterOpeningHours(THURSDAY, this),
+                filterOpeningHours(FRIDAY, this),
+                filterOpeningHours(SATURDAY, this),
+                filterOpeningHours(SUNDAY, this),
             )
         )
     }
