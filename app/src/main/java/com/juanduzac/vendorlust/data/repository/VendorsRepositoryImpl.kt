@@ -51,7 +51,7 @@ class VendorsRepositoryImpl @Inject constructor(
                     vendorDao.searchVendorsWithOpeningHoursAndHeroImage(query)
 
                 val isDbEmpty = localVendorsEntities.isEmpty() && query.isBlank()
-                val shouldLoadFromCache = !isDbEmpty && !forceFetchFromRemote
+                val shouldLoadFromCache = !isDbEmpty
 
                 if (shouldLoadFromCache) {
                     val vendorsModel = localVendorsEntities.map { it.toVendor() }
