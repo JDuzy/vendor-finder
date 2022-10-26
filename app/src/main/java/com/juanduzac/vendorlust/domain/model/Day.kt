@@ -1,6 +1,6 @@
 package com.juanduzac.vendorlust.domain.model
 
-enum class Day(val string: String, val int: Int) {
+enum class Day(val string: String, val id: Long) {
     MONDAY("Monday", 0),
     TUESDAY("Tuesday", 1),
     WEDNESDAY("Wednesday", 2),

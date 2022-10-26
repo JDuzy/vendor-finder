@@ -140,7 +140,7 @@ class VendorDaoTest {
                 openingHoursInWeekId = 1,
                 opensAt = "07:00:00",
                 closesAt = "13:00:00",
-                dayOfWeek = Day.MONDAY.string
+                dayId = Day.MONDAY.id
             )
 
             val openingHoursInWeekEntity1 = OpeningHoursInWeekEntity(

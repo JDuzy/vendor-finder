@@ -3,7 +3,7 @@ package com.juanduzac.vendorlust.data.local.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "vendor")
 data class VendorEntity(
     @PrimaryKey
     val vendorId: Long? = null,

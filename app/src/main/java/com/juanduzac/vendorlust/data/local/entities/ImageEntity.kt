@@ -1,9 +1,13 @@
 package com.juanduzac.vendorlust.data.local.entities
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(
+    tableName = "image"
+)
 data class ImageEntity(
     @PrimaryKey
     val imageId: Long? = null,
@@ -16,5 +20,4 @@ data class ImageEntity(
     val height: Int? = null,
     val url: String? = null,
     val previewUrl: String? = null,
-
-)
+    )
