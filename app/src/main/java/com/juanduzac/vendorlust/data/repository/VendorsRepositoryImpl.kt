@@ -39,42 +39,42 @@ class VendorsRepositoryImpl @Inject constructor(
     private val vendorDao = db.vendorDao
 
     override suspend fun getVendors(
-        fetchFromRemote: Boolean,
+        forceFetchFromRemote: Boolean,
         query: String
     ): Flow<Resource<VendorsResponse>> {
         return flow {
             emit(Resource.Loading<VendorsResponse>(true))
 
-            val localVendorsEntities = vendorDao.searchVendorsWithOpeningHoursAndHeroImage(query)
-            val vendorsModel = localVendorsEntities.map { it.toVendor() }
+            if (!forceFetchFromRemote) {
 
-            emit(
-                Resource.Success(
-                    data = VendorsResponse(vendors = vendorsModel)
-                )
-            )
+                val localVendorsEntities =
+                    vendorDao.searchVendorsWithOpeningHoursAndHeroImage(query)
 
-            val isDbEmpty = localVendorsEntities.isEmpty() && query.isBlank()
-            val shouldLoadFromCache = !isDbEmpty && !fetchFromRemote
+                val isDbEmpty = localVendorsEntities.isEmpty() && query.isBlank()
+                val shouldLoadFromCache = !isDbEmpty
 
-            if (shouldLoadFromCache) {
-                emit(Resource.Loading<VendorsResponse>(false))
-                return@flow
+                if (shouldLoadFromCache) {
+                    val vendorsModel = localVendorsEntities.map { it.toVendor() }
+                    emit(
+                        Resource.Success(
+                            data = VendorsResponse(vendors = vendorsModel)
+                        )
+                    )
+                    emit(Resource.Loading<VendorsResponse>(false))
+                    return@flow
+                }
             }
 
             val remoteVendorsDto = fetchVendorsFromRemote(this)
 
             remoteVendorsDto?.let { vendorsDto ->
-                vendorDao.clearVendors()
-                insertVendorsInCascade(vendorsDto)
 
-                // Single source of truth, always coming from cache
-                val localVendors = vendorDao.searchVendorsWithOpeningHoursAndHeroImage("")
-                val response = VendorsResponse(localVendors.map { it.toVendor() })
-
+                val response = VendorsResponse(vendorsDto.map { it.toVendor() })
                 emit(Resource.Success<VendorsResponse>(response))
                 emit(Resource.Loading<VendorsResponse>(false))
-            }
+
+                insertVendorsInCascade(vendorsDto)
+            } ?: emit(Resource.Error<VendorsResponse>("Vendors not found"))
         } as Flow<Resource<VendorsResponse>>
     }
 

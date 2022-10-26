@@ -1,5 +1,6 @@
 package com.juanduzac.vendorlust.presentation.usecases.vendorlist.view
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,15 +10,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -61,28 +66,42 @@ fun VendorListScreen(
                     backgroundColor = MaterialTheme.colors.background,
                     cursorColor = Pink,
                 ),
-                leadingIcon = { Icon(modifier = Modifier.size(24.dp), imageVector = Icons.Outlined.Search, contentDescription = null) }
+                leadingIcon = {
+                    Icon(
+                        modifier = Modifier.size(24.dp),
+                        imageVector = Icons.Outlined.Search,
+                        contentDescription = null
+                    )
+                }
             )
-
-            SwipeRefresh(
-                state = swipeRefreshState,
-                onRefresh = { viewModel.getVendorsList(true) }
-            ) {
-                viewModel.vendorsResponse.vendors?.let { vendors ->
-                    LazyColumn(modifier = Modifier.padding(top = 12.dp)) {
-                        items(vendors) { vendor ->
-                            VendorItem(
-                                vendor = vendor,
-                                isOpen = vendor.isOpen(),
-                                onClick = {
-                                    it.id?.let { id ->
-                                        viewModel.getVendorDetail(id)
-                                        navController.navigate(Screen.VendorDetailScreen.route)
+            if (viewModel.isLoading) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    CircularProgressIndicator(color = Pink)
+                }
+            } else {
+                SwipeRefresh(
+                    state = swipeRefreshState,
+                    onRefresh = { viewModel.getVendorsList(true) }
+                ) {
+                    viewModel.vendorsResponse.vendors?.let { vendors ->
+                        LazyColumn(modifier = Modifier.padding(top = 12.dp)) {
+                            items(vendors) { vendor ->
+                                VendorItem(
+                                    vendor = vendor,
+                                    isOpen = vendor.isOpen(),
+                                    onClick = {
+                                        it.id?.let { id ->
+                                            viewModel.getVendorDetail(id)
+                                            navController.navigate(Screen.VendorDetailScreen.route)
+                                        }
                                     }
-                                }
-                            )
+                                )
 
-                            Spacer(modifier = Modifier.height(8.dp))
+                                Spacer(modifier = Modifier.height(8.dp))
+                            }
                         }
                     }
                 }
