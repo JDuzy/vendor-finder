@@ -34,7 +34,7 @@ class VendorListViewModel @Inject constructor(
         getVendorsList()
     }
 
-    fun getVendorsList(
+    private fun getVendorsList(
         fetchFromRemote: Boolean = false,
         query: String = searchQuery,
         scope: CoroutineScope? = viewModelScope
@@ -64,6 +64,12 @@ class VendorListViewModel @Inject constructor(
             delay(500L)
             getVendorsList(scope = this)
         }
+    }
+
+    fun refreshList(){
+        searchQuery = ""
+        getVendorsList(fetchFromRemote =  true)
+
     }
 
     fun getVendorDetail(vendorId: Long) {

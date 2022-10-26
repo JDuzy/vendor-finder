@@ -84,7 +84,7 @@ fun VendorListScreen(
             } else {
                 SwipeRefresh(
                     state = swipeRefreshState,
-                    onRefresh = { viewModel.getVendorsList(true) }
+                    onRefresh = { viewModel.refreshList() }
                 ) {
                     viewModel.vendorsResponse.vendors?.let { vendors ->
                         LazyColumn(modifier = Modifier.padding(top = 12.dp)) {
