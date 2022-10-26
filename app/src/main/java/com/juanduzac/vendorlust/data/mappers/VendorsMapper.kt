@@ -7,7 +7,13 @@ import com.juanduzac.vendorlust.data.local.relations.vendor.VendorWithOpeningHou
 import com.juanduzac.vendorlust.data.remote.dtos.VendorDto
 import com.juanduzac.vendorlust.data.remote.dtos.VendorsResponseDto
 import com.juanduzac.vendorlust.domain.model.Day
-import com.juanduzac.vendorlust.domain.model.Day.*
+import com.juanduzac.vendorlust.domain.model.Day.FRIDAY
+import com.juanduzac.vendorlust.domain.model.Day.MONDAY
+import com.juanduzac.vendorlust.domain.model.Day.SATURDAY
+import com.juanduzac.vendorlust.domain.model.Day.SUNDAY
+import com.juanduzac.vendorlust.domain.model.Day.THURSDAY
+import com.juanduzac.vendorlust.domain.model.Day.TUESDAY
+import com.juanduzac.vendorlust.domain.model.Day.WEDNESDAY
 import com.juanduzac.vendorlust.domain.model.OpeningHoursInDay
 import com.juanduzac.vendorlust.domain.model.OpeningHoursInWeek
 import com.juanduzac.vendorlust.domain.model.Vendor
@@ -87,7 +93,9 @@ private fun filterOpeningHours(
         .map { it.toOpeningHoursInDay() }
 }
 
-private fun getOpeningHoursInWeek(openingHoursInWeekWithOpeningHoursInDay: OpeningHoursInWeekWithOpeningHoursInDay): OpeningHoursInWeek {
+private fun getOpeningHoursInWeek(
+    openingHoursInWeekWithOpeningHoursInDay: OpeningHoursInWeekWithOpeningHoursInDay
+): OpeningHoursInWeek {
     with(openingHoursInWeekWithOpeningHoursInDay) {
         return OpeningHoursInWeek(
             id = this.openingHoursInWeekEntity.openingHoursInWeekId,
@@ -103,5 +111,3 @@ private fun getOpeningHoursInWeek(openingHoursInWeekWithOpeningHoursInDay: Openi
         )
     }
 }
-
-

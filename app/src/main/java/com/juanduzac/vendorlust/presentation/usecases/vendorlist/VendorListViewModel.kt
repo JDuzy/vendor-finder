@@ -83,7 +83,6 @@ class VendorListViewModel @Inject constructor(
                         }
                     }
                 }
-
         }
     }
 }

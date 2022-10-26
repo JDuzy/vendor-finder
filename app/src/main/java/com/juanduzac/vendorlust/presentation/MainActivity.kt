@@ -38,9 +38,10 @@ class MainActivity : ComponentActivity() {
 
     private fun startWebIntent(url: String) {
         try {
-            startActivity(Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(url)
-            }
+            startActivity(
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(url)
+                }
             )
         } catch (ex: ActivityNotFoundException) {
             Toast.makeText(
@@ -49,7 +50,6 @@ class MainActivity : ComponentActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
     }
 
     private fun startEmailIntent(emailAddress: String) {

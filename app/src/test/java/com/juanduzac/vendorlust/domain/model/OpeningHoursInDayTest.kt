@@ -1,18 +1,18 @@
 package com.juanduzac.vendorlust.domain.model
 
+import java.time.LocalTime
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalTime
 
 internal class OpeningHoursInDayTest {
 
     private lateinit var openingHoursInDay: OpeningHoursInDay
 
     @Before
-    fun setup(){
+    fun setup() {
         openingHoursInDay = OpeningHoursInDay(
             opensAt = "07:00:00",
             closesAt = "12:00:00"
