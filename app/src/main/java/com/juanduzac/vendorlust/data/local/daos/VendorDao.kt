@@ -18,20 +18,20 @@ interface VendorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVendor(vendor: VendorEntity)
 
-    @Query("DELETE FROM vendorentity")
+    @Query("DELETE FROM vendor")
     suspend fun clearVendors()
 
     @Transaction
-    @Query("SELECT * FROM vendorentity")
+    @Query("SELECT * FROM vendor")
     suspend fun getVendorsWithOpeningHoursAndHeroImage(): List<VendorWithOpeningHoursAndHeroImage>
 
-    @Transaction //TODO ASK 'AND' OR 'OR' FOR QUERY
-    @Query("SELECT * FROM vendorentity WHERE LOWER(name) LIKE '%' || LOWER(:query) || '%' OR LOWER(description) LIKE '%' || LOWER(:query) || '%'")
+    @Transaction
+    @Query("SELECT * FROM vendor WHERE LOWER(name) LIKE '%' || LOWER(:query) || '%' OR LOWER(description) LIKE '%' || LOWER(:query) || '%'")
     suspend fun searchVendorsWithOpeningHoursAndHeroImage(
         query: String
     ): List<VendorWithOpeningHoursAndHeroImage>
 
     @Transaction
-    @Query("SELECT * FROM vendorentity WHERE vendorId = :vendorId")
+    @Query("SELECT * FROM vendor WHERE vendorId = :vendorId")
     suspend fun getVendorDetails(vendorId: Long): VendorWithDetail?
 }

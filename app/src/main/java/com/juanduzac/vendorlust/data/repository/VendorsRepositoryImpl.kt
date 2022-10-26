@@ -11,6 +11,13 @@ import com.juanduzac.vendorlust.data.mappers.toVendorEntity
 import com.juanduzac.vendorlust.data.remote.api.VendorsApi
 import com.juanduzac.vendorlust.data.remote.dtos.OpeningHoursInWeekDto
 import com.juanduzac.vendorlust.data.remote.dtos.VendorDto
+import com.juanduzac.vendorlust.domain.model.Day.MONDAY
+import com.juanduzac.vendorlust.domain.model.Day.THURSDAY
+import com.juanduzac.vendorlust.domain.model.Day.WEDNESDAY
+import com.juanduzac.vendorlust.domain.model.Day.TUESDAY
+import com.juanduzac.vendorlust.domain.model.Day.FRIDAY
+import com.juanduzac.vendorlust.domain.model.Day.SUNDAY
+import com.juanduzac.vendorlust.domain.model.Day.SATURDAY
 import com.juanduzac.vendorlust.domain.model.Vendor
 import com.juanduzac.vendorlust.domain.model.VendorsResponse
 import com.juanduzac.vendorlust.domain.repository.VendorsRepository
@@ -60,10 +67,7 @@ class VendorsRepositoryImpl @Inject constructor(
             remoteVendorsDto?.let { vendorsDto ->
                 vendorDao.clearVendors()
                 insertVendorsInCascade(vendorsDto)
-                val vendorsEntities = vendorsDto.map { it.toVendorEntity() }
-                vendorsEntities.let { entities ->
-                    vendorDao.insertVendors(entities)
-                }
+
                 // Single source of truth, always coming from cache
                 val localVendors = vendorDao.searchVendorsWithOpeningHoursAndHeroImage("")
                 val response = VendorsResponse(localVendors.map { it.toVendor() })
@@ -89,43 +93,41 @@ class VendorsRepositoryImpl @Inject constructor(
     }
 
     private suspend fun insertVendorsInCascade(vendorDtos: List<VendorDto>) {
-        vendorDtos.forEach { vendorDto ->
-            with(db) {
+        vendorDtos.forEach { vndrDto ->
 
-                vendorDto.contactInfoDto?.let { contactInfoDto ->
-                    contactInfoDao.insertContactInfo(
-                        contactInfoDto.toContactInfoEntity(vendorDto.id)
-                    )
-                }
+            db.vendorDao.insertVendor(vndrDto.toVendorEntity())
 
-                vendorDto.galleryDto?.let { galleryItemDtos ->
-                    galleryItemDtos.forEach { galleryItemDto ->
+            vndrDto.contactInfoDto?.let { contactInfoDto ->
+                db.contactInfoDao.insertContactInfo(
+                    contactInfoDto.toContactInfoEntity(vndrDto.id)
+                )
+            }
 
-                        galleryItemDto.imageDto?.let { imageDto ->
-                            imageDao.insertImage(
-                                imageDto.toImageEntity(
-                                    galleryItemId = galleryItemDto.id
-                                )
-                            )
-                        }
+            vndrDto.galleryDto?.let { galleryItemDtos ->
+                galleryItemDtos.forEach { galleryItemDto ->
 
-                        galleryItemDao.insertGalleryItem(
-                            galleryItemDto.toGalleryItemEntity(
-                                vendorDto.id
+                    galleryItemDto.imageDto?.let { imageDto ->
+                        db.imageDao.insertImage(
+                            imageDto.toImageEntity(
+                                galleryItemId = galleryItemDto.id
                             )
                         )
                     }
-                }
 
-                vendorDto.heroImageDto?.let { imageDto ->
-                    imageDao.insertImage(imageDto.toImageEntity(vendorId = vendorDto.id))
+                    db.galleryItemDao.insertGalleryItem(
+                        galleryItemDto.toGalleryItemEntity(
+                            vndrDto.id
+                        )
+                    )
                 }
+            }
 
-                vendorDto.openingHoursDto?.let { openingHoursInWeekDto ->
-                    insertOpeningHours(openingHoursInWeekDto, vendorDto.id)
-                }
+            vndrDto.heroImageDto?.let { imageDto ->
+                db.imageDao.insertImage(imageDto.toImageEntity(vendorId = vndrDto.id))
+            }
 
-                vendorDao.insertVendor(vendorDto.toVendorEntity())
+            vndrDto.openingHoursDto?.let { openingHoursInWeekDto ->
+                insertOpeningHours(openingHoursInWeekDto, vndrDto.id)
             }
         }
     }
@@ -134,22 +136,33 @@ class VendorsRepositoryImpl @Inject constructor(
         openingHoursInWeekDto: OpeningHoursInWeekDto,
         vendorId: Long
     ) {
+
+        db.openingHoursInWeekDao.insertOpeningHoursInWeek(
+            openingHoursInWeekDto.toEntity(vendorId)
+        )
+
         openingHoursInWeekDto.monday?.forEach { openingHoursInDayDto ->
             db.openingHoursInDayDao.insertOpeningHoursInDay(
-                openingHoursInDayDto.toOpeningHoursInDayEntity("monday", openingHoursInWeekDto.id)
+                openingHoursInDayDto.toOpeningHoursInDayEntity(
+                    MONDAY,
+                    openingHoursInWeekDto.id
+                )
             )
         }
 
         openingHoursInWeekDto.thursday?.forEach { openingHoursInDayDto ->
             db.openingHoursInDayDao.insertOpeningHoursInDay(
-                openingHoursInDayDto.toOpeningHoursInDayEntity("thursday", openingHoursInWeekDto.id)
+                openingHoursInDayDto.toOpeningHoursInDayEntity(
+                    THURSDAY,
+                    openingHoursInWeekDto.id
+                )
             )
         }
 
         openingHoursInWeekDto.wednesday?.forEach { openingHoursInDayDto ->
             db.openingHoursInDayDao.insertOpeningHoursInDay(
                 openingHoursInDayDto.toOpeningHoursInDayEntity(
-                    "wednesday",
+                    WEDNESDAY,
                     openingHoursInWeekDto.id
                 )
             )
@@ -157,31 +170,39 @@ class VendorsRepositoryImpl @Inject constructor(
 
         openingHoursInWeekDto.tuesday?.forEach { openingHoursInDayDto ->
             db.openingHoursInDayDao.insertOpeningHoursInDay(
-                openingHoursInDayDto.toOpeningHoursInDayEntity("tuesday", openingHoursInWeekDto.id)
+                openingHoursInDayDto.toOpeningHoursInDayEntity(
+                    TUESDAY,
+                    openingHoursInWeekDto.id
+                )
             )
         }
 
         openingHoursInWeekDto.friday?.forEach { openingHoursInDayDto ->
             db.openingHoursInDayDao.insertOpeningHoursInDay(
-                openingHoursInDayDto.toOpeningHoursInDayEntity("friday", openingHoursInWeekDto.id)
+                openingHoursInDayDto.toOpeningHoursInDayEntity(
+                    FRIDAY,
+                    openingHoursInWeekDto.id
+                )
             )
         }
 
         openingHoursInWeekDto.saturday?.forEach { openingHoursInDayDto ->
             db.openingHoursInDayDao.insertOpeningHoursInDay(
-                openingHoursInDayDto.toOpeningHoursInDayEntity("saturday", openingHoursInWeekDto.id)
+                openingHoursInDayDto.toOpeningHoursInDayEntity(
+                    SATURDAY,
+                    openingHoursInWeekDto.id
+                )
             )
         }
 
         openingHoursInWeekDto.sunday?.forEach { openingHoursInDayDto ->
             db.openingHoursInDayDao.insertOpeningHoursInDay(
-                openingHoursInDayDto.toOpeningHoursInDayEntity("sunday", openingHoursInWeekDto.id)
+                openingHoursInDayDto.toOpeningHoursInDayEntity(
+                    SUNDAY,
+                    openingHoursInWeekDto.id
+                )
             )
         }
-
-        db.openingHoursInWeekDao.insertOpeningHoursInWeek(
-            openingHoursInWeekDto.toEntity(vendorId)
-        )
     }
 
     private suspend fun fetchVendorsFromRemote(

@@ -1,12 +1,6 @@
 package com.juanduzac.vendorlust.presentation.usecases.vendordetail
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.LinearOutSlowInEasing
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,18 +12,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ButtonElevation
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -49,21 +35,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -74,15 +55,11 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
-import com.juanduzac.vendorlust.domain.model.GalleryItem
 import com.juanduzac.vendorlust.domain.model.Vendor
-import com.juanduzac.vendorlust.presentation.navigation.Screen
 import com.juanduzac.vendorlust.presentation.ui.theme.AppbarCollapsedHeight
 import com.juanduzac.vendorlust.presentation.ui.theme.AppbarExpandedHeight
 import com.juanduzac.vendorlust.presentation.ui.theme.Gray
-import com.juanduzac.vendorlust.presentation.ui.theme.LightGray
 import com.juanduzac.vendorlust.presentation.ui.theme.Pink
-import com.juanduzac.vendorlust.presentation.ui.theme.Shapes
 import com.juanduzac.vendorlust.presentation.ui.theme.VendorLustTheme
 import com.juanduzac.vendorlust.presentation.ui.theme.neutral800
 import com.juanduzac.vendorlust.presentation.util.vendorExample
@@ -179,7 +156,7 @@ private fun ParallaxToolbar(
                         .data(vendor.heroImage?.url)
                         .crossfade(true)
                         .build(),
-                    placeholder = null, // TODO ADD PLACEHOLDER
+                    placeholder = null,
                     contentDescription = vendor.heroImage?.alternativeText,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
@@ -231,58 +208,6 @@ private fun ParallaxToolbar(
         CircularButton(Icons.Outlined.ArrowBack) { navController.popBackStack() }
         CircularButton(Icons.Outlined.Favorite, color = if (isFaved) Pink else Gray) { onIsFaved() }
     }
-
-}
-
-@Composable
-private fun CircularButton(
-    imageVector: ImageVector,
-    color: Color = Gray,
-    elevation: ButtonElevation? = ButtonDefaults.elevation(),
-    onClick: () -> Unit = {}
-) {
-    Button(
-        onClick = onClick,
-        contentPadding = PaddingValues(),
-        shape = Shapes.small,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = White,
-            contentColor = color
-        ),
-        elevation = elevation,
-        modifier = Modifier
-            .height(38.dp)
-            .width(38.dp),
-        border = BorderStroke(1.dp, LightGray)
-    ) {
-        Icon(imageVector = imageVector, contentDescription = null)
-    }
-}
-
-@Composable
-private fun Gallery(galleryItems: List<GalleryItem>) {
-    LazyRow(
-        modifier = Modifier.padding(vertical = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        items(galleryItems) { item ->
-            Spacer(modifier = Modifier.width(12.dp))
-
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(item.image?.url)
-                    .crossfade(true)
-                    .build(),
-                placeholder = null, // TODO ADD PLACEHOLDER
-                contentDescription = item.image?.alternativeText,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .clip(Shapes.small)
-                    .size(116.dp)
-            )
-
-        }
-    }
 }
 
 @Composable
@@ -326,7 +251,7 @@ private fun BasicInfo(
                 val openingHoursForTodayText = openingHoursInWeek.getOpeningHoursTextForToday()
                 val weeklyOpeningText = openingHoursInWeek.getWeeklyOpeningHoursText()
 
-                expandableInfoRow(
+                ExpandableInfoRow(
                     imageVector = Icons.Outlined.DateRange,
                     text = openingHoursForTodayText,
                     tint = Pink,
@@ -365,93 +290,8 @@ private fun BasicInfo(
                     startWebIntent(url)
                 }
             }
-
-        }
-
-    }
-}
-
-@Composable
-private fun InfoRow(
-    modifier: Modifier = Modifier,
-    imageVector: ImageVector,
-    text: String,
-    tint: Color,
-    dividerBelow: Boolean = true,
-    trailingIcon: ImageVector? = null,
-    trailingTint: Color = Gray,
-    trailingRotation: Float = 0f,
-    onClick: (() -> Unit)? = null
-) {
-    Row(
-        modifier = onClick?.let { modifier.then(Modifier.clickable { it() }) } ?: modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(imageVector, null, tint = tint, modifier = Modifier.height(32.dp))
-
-        Spacer(Modifier.width(8.dp))
-        Text(
-            text = text,
-            fontWeight = FontWeight.Medium,
-            style = MaterialTheme.typography.body2,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-        )
-        trailingIcon?.let {
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                trailingIcon, null, tint = trailingTint, modifier = Modifier
-                    .height(32.dp)
-                    .rotate(trailingRotation)
-            )
         }
     }
-    if (dividerBelow)
-        Divider(thickness = 1.dp, color = Gray)
-}
-
-@Composable
-private fun expandableInfoRow(
-    modifier: Modifier = Modifier,
-    imageVector: ImageVector,
-    text: String,
-    tint: Color,
-    trailingIcon: ImageVector?,
-    dividerBelow: Boolean = true,
-    descriptionTexts: List<String>
-) {
-    var isExpanded by remember { mutableStateOf(false) }
-    val rotationState by animateFloatAsState(targetValue = if (isExpanded) 180f else 0f)
-
-    InfoRow(
-        modifier = modifier.then(
-            Modifier
-                .clickable { isExpanded = !isExpanded }
-                .animateContentSize(
-                    animationSpec = tween(
-                        delayMillis = 300,
-                        easing = LinearOutSlowInEasing
-                    )
-                )),
-        imageVector = imageVector,
-        text = text,
-        tint = tint,
-        trailingIcon = trailingIcon,
-        trailingRotation = rotationState,
-        dividerBelow = false
-    )
-    if (isExpanded) {
-        descriptionTexts.forEach {
-            Text(
-                text = it,
-                fontWeight = FontWeight.Medium,
-                style = MaterialTheme.typography.body2,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-    }
-    if (dividerBelow)
-        Divider(thickness = 1.dp, color = Gray)
 }
 
 @Preview(showBackground = true, widthDp = 380, heightDp = 1400)

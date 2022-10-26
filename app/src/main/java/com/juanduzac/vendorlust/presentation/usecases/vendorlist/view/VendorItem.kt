@@ -65,7 +65,7 @@ fun VendorItem(
                     .data(vendor.heroImage?.url)
                     .crossfade(true)
                     .build(),
-                placeholder = null, // TODO ADD PLACEHOLDER
+                placeholder = null,
                 contentDescription = vendor.heroImage?.alternativeText,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
