@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface VendorsRepository {
 
     suspend fun getVendors(
-        fetchFromRemote: Boolean,
+        forceFetchFromRemote: Boolean,
         query: String
     ): Flow<Resource<VendorsResponse>>
 
