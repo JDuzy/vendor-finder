@@ -8,7 +8,7 @@ import com.juanduzac.vendorlust.presentation.util.vendorExample
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeVendorRepository(): VendorsRepository {
+class FakeVendorRepository() : VendorsRepository {
 
     var shouldReturnNetworkError = false
 
@@ -36,6 +36,4 @@ class FakeVendorRepository(): VendorsRepository {
             emit(Resource.Loading<Vendor>(isLoading = false))
         }
     }
-
-
 }

@@ -39,7 +39,6 @@ fun Gallery(galleryItems: List<GalleryItem>) {
                     .clip(Shapes.small)
                     .size(116.dp)
             )
-
         }
     }
 }

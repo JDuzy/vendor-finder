@@ -13,5 +13,4 @@ data class Vendor(
 
     fun isOpen(): Boolean =
         openingHours?.isOpen() ?: false
-
 }

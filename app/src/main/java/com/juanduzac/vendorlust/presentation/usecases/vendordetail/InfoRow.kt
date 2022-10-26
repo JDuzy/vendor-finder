@@ -49,7 +49,8 @@ fun InfoRow(
         trailingIcon?.let {
             Spacer(modifier = Modifier.weight(1f))
             Icon(
-                trailingIcon, null, tint = trailingTint, modifier = Modifier
+                trailingIcon, null, tint = trailingTint,
+                modifier = Modifier
                     .height(32.dp)
                     .rotate(trailingRotation)
             )

@@ -54,7 +54,6 @@ class MainActivityTest {
 
             composeTestRule.awaitIdle()
             assertEquals(Screen.VendorDetailScreen.route, actualRoute)
-
         }
     }
 }

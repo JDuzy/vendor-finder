@@ -15,7 +15,8 @@ import com.juanduzac.vendorlust.domain.model.Location
             entity = VendorEntity::class,
             parentColumns = ["vendorId"],
             childColumns = ["vendorId"]
-        )]
+        )
+    ]
 )
 data class ContactInfoEntity(
     @PrimaryKey
